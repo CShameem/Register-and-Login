@@ -1,0 +1,217 @@
+let myFormEl = document.getElementById('myForm');
+let nameEl = document.getElementById('name');
+let emailEl = document.getElementById('email');
+let pswdEl = document.getElementById('pswd');
+let addressEl = document.getElementById('address');
+let phnoEl = document.getElementById('phno');
+let visibleEl = document.getElementById('visible');
+let registerEl = document.getElementById('register');
+
+let nameErrMsgEl = document.getElementById('nameErrMsg');
+let emailErrMsgEl = document.getElementById('emailErrMsg');
+let pswdErrMsgEl = document.getElementById('pswdErrMsg');
+let addressErrMsgEl = document.getElementById('addressErrMsg');
+let phnoErrMsgEl = document.getElementById('phnoErrMsg');
+
+let registerpage = document.getElementById('registerpage');
+
+let loginPage = document.getElementById('loginPage');
+
+myFormEl.addEventListener('submit', function(event) {
+    event.preventDefault();
+});
+
+nameEl.addEventListener('blur', function(event) {
+    if (event.target.value === "") {
+        nameErrMsgEl.textContent = 'Required*';
+    } else {
+        nameErrMsgEl.textContent = '';
+    }
+});
+
+emailEl.addEventListener('blur', function(event) {
+    if (event.target.value === "") {
+        emailErrMsgEl.textContent = 'Required*';
+    } else {
+        emailErrMsgEl.textContent = '';
+    }
+});
+
+addressEl.addEventListener('blur', function(event) {
+    if (event.target.value === "") {
+        addressErrMsgEl.textContent = 'Required*';
+    } else {
+        addressErrMsgEl.textContent = '';
+    }
+});
+
+phnoEl.addEventListener('blur', function(event) {
+    if (event.target.value === "") {
+        phnoErrMsgEl.textContent = 'Required*';
+    } else {
+        phnoErrMsgEl.textContent = '';
+    }
+});
+
+pswdEl.addEventListener('blur', function(event) {
+
+    if (event.target.value === "") {
+        pswdErrMsgEl.textContent = 'Required*';
+    } else {
+        pswdErrMsgEl.textContent = '';
+    }
+});
+
+function onVisible() {
+    if (pswdEl.type === 'password') {
+        pswdEl.type = 'text';
+    } else {
+        pswdEl.type = 'password';
+    }
+}
+visibleEl.onclick = function() {
+    onVisible();
+}
+
+function onRegister() {
+    if (nameEl.value !== '' && emailEl.value !== '' && pswdEl.value !== '' && addressEl.value !== '' && phnoEl.value !== '') {
+        console.log({
+            name: nameEl.value,
+            email: emailEl.value,
+            password: pswdEl.value,
+            address: addressEl.value
+        });
+        alert('User Registration Successfull');
+        registerpage.classList.add('d-none');
+
+        let loginForm = document.createElement('form');
+        loginForm.id = 'myLoginForm';
+        loginPage.appendChild(loginForm);
+
+
+        //creating email
+
+        let emailLogin = document.createElement('label');
+        emailLogin.textContent = 'Email : ';
+        emailLogin.htmlFor = 'userEmailLogin';
+        loginForm.appendChild(emailLogin);
+
+        let loginInput = document.createElement('input');
+        loginInput.type = 'text';
+        loginInput.id = 'userEmailLogin';
+        loginInput.classList.add('form-control');
+        loginForm.appendChild(loginInput);
+
+        let emailLoginErrMsg = document.createElement('p');
+        emailLoginErrMsg.id = 'loginEmailErrMsg';
+        emailLoginErrMsg.classList.add('errorMsg');
+        loginForm.appendChild(emailLoginErrMsg);
+
+        //create password
+        let pswdLogin = document.createElement('label');
+        pswdLogin.textContent = 'Password : ';
+        pswdLogin.htmlFor = 'userPswd';
+        loginForm.appendChild(pswdLogin);
+
+        let pswdInput = document.createElement('input');
+        pswdInput.type = 'password';
+        pswdInput.id = 'userPswd';
+        pswdInput.placeholder = 'must have more than 6 characters';
+        pswdInput.classList.add('form-control');
+        loginForm.appendChild(pswdInput);
+
+        let pswdLoginErrMsg = document.createElement('p');
+        pswdLoginErrMsg.classList.add('errorMsg');
+        pswdLoginErrMsg.id = 'loginpswdErrMsg';
+        loginForm.appendChild(pswdLoginErrMsg);
+
+        //checkbox
+
+        let checkboxEl = document.createElement('input');
+        checkboxEl.type = 'checkbox';
+        checkboxEl.id = 'loginCheckBox';
+        loginForm.appendChild(checkboxEl);
+
+        let labelEl = document.createElement('label');
+        labelEl.textContent = 'Show Password';
+        labelEl.htmlFor = 'loginCheckBox';
+        loginForm.appendChild(labelEl);
+
+        //login button container
+        let loginButtonContainer = document.createElement('div');
+        loginForm.appendChild(loginButtonContainer);
+
+        //button
+
+        let loginButton = document.createElement('button');
+        loginButton.type = 'submit';
+        loginButton.id = 'loginUserButton';
+        loginButton.textContent = 'Login';
+        loginButton.classList.add('btn', 'btn-success');
+        loginButtonContainer.appendChild(loginButton);
+
+        let myLoginForm = document.getElementById('myLoginForm');
+
+        myLoginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+        });
+
+        let userEmailLogin = document.getElementById('userEmailLogin');
+        let loginEmailErrMsg = document.getElementById('loginEmailErrMsg');
+
+        userEmailLogin.addEventListener('blur', function(event) {
+            if (event.target.value === '') {
+                loginEmailErrMsg.textContent = 'Required*';
+            } else {
+                loginEmailErrMsg.textContent = '';
+            }
+        });
+
+        let userPswd = document.getElementById('userPswd');
+        let loginpswdErrMsg = document.getElementById('loginpswdErrMsg');
+
+        userPswd.addEventListener('blur', function(event) {
+            if (event.target.value === '') {
+                loginpswdErrMsg.textContent = 'Required*';
+            } else {
+                loginpswdErrMsg.textContent = '';
+            }
+        });
+
+        let loginCheckBox = document.getElementById('loginCheckBox');
+
+        function onLoginVisible() {
+            if (userPswd.type === 'password') {
+                userPswd.type = 'text';
+            } else {
+                userPswd.type = 'password';
+            }
+        }
+
+        loginCheckBox.onclick = function() {
+            onLoginVisible();
+        }
+
+        function onUserLogin() {
+            if (userEmailLogin.value === emailEl.value && userPswd.value === pswdEl.value) {
+                console.log({
+                    email: userEmailLogin.value,
+                    password: userPswd.value
+                });
+                alert('User Login Successfull');
+            } else {
+                alert('Enter valid user details');
+            }
+        }
+
+        let loginUserButton = document.getElementById('loginUserButton');
+
+        loginUserButton.onclick = function() {
+            onUserLogin();
+
+        }
+    }
+}
+registerEl.onclick = function() {
+    onRegister();
+}
